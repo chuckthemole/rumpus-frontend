@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { Outlet } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// import Footer from './common/footer';
+// import Header from './common/header';
+// import Section from './common/section';
+import { Footer, Header, Section, RumpusQuillForm, RumpusQuill } from '@rumpushub/common-react'
+import { CREATE_USER_PATH, getCurrentUserAuthorities, isCurrentUserAuthenticated } from './rumpus';
+// import RumpusQuillForm from './common/rumpus_quill_form';
+// import RumpusQuill from './common/rumpus_quill';
+
+export default function App() {
+
+    console.log('rumpus React version:', React.version);
+
+    return (
+        <>
+            <Header header_path={'/view/header'} />
+            <div className='columns is-centered'>
+
+                {/* <RumpusQuillForm quill={<RumpusQuill />} /> */}
+
+
+                <div className='column'></div>
+                <div className='column is-three-fifths'>
+                    <Outlet />
+                </div>
+                <div className='column'></div>
+            </div>
+            <Footer footer_path={"/view/footer"} />
+        </>
+    )
 }
-
-export default App;
