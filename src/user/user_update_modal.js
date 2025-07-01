@@ -11,8 +11,18 @@ import { isModalActive, modal_style, setModalActive, setModalInactive } from '@r
 import { CreateLogItemRequest } from '@rumpushub/common-react/dist/components/common';
 import { load_current_user } from './user_loader';
 
+import api from '../api';
+
 export async function loader({ params }) {
-    return fetch(`/api/user/${params.userId}`);
+    try {
+        const response = await api.get(`/api/user/${params.userId}`);
+        return response.data;
+    } catch (error) {
+        const err = new Error('Failed to load user.');
+        err.status = error.response?.status || 500;
+        err.info = error.response?.data || null;
+        throw err;
+    }
 }
 
 function UpdateUser({ userDetails, user_email, metaData, user_id }) {
@@ -26,7 +36,7 @@ function UpdateUser({ userDetails, user_email, metaData, user_id }) {
     const [modalIsOpen, setIsOpen] = React.useState(false);
 
     function openModal() {
-        if(!isModalActive()) {
+        if (!isModalActive()) {
             setIsOpen(true);
             setModalActive();
         }
@@ -65,7 +75,7 @@ function UpdateUser({ userDetails, user_email, metaData, user_id }) {
         });
 
         await fetch(UPDATE_USER_PATH, requestOptions).then(response => response.json()).then(data => {
-            if(data.attributes.status == 'user updated') {
+            if (data.attributes.status == 'user updated') {
                 alert('User \'' + username + '\' updated!');
                 fetch('/api/log_action', CreateLogItemRequest('ADMIN_LOG', 'UPDATE user with username: [old: \'' + userDetails.username + '\', new: \'' + username + '\']', currentUser.id, currentUser.username));
             } else {
@@ -97,42 +107,42 @@ function UpdateUser({ userDetails, user_email, metaData, user_id }) {
                 contentLabel="Example Modal"
             >
 
-            <div className='modal-content'>
-                <fetcher.Form reloadDocument onSubmit={handleSubmit} className="box">
-                    <div className="field">
-                        <label htmlFor="" className="label">Username</label>
-                        <div className="control has-icons-left">
-                            <input type="username" placeholder="e.g. coolguy" className="input" value={username} onChange={e => setUsername(e.target.value)} required />
+                <div className='modal-content'>
+                    <fetcher.Form reloadDocument onSubmit={handleSubmit} className="box">
+                        <div className="field">
+                            <label htmlFor="" className="label">Username</label>
+                            <div className="control has-icons-left">
+                                <input type="username" placeholder="e.g. coolguy" className="input" value={username} onChange={e => setUsername(e.target.value)} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-envelope"></i>
                                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="" className="label">Email</label>
-                        <div className="control has-icons-left">
-                            <input type="email" placeholder="e.g. bobsmith@gmail.com" className="input" value={email} onChange={e => setEmail(e.target.value)} required />
+                        <div className="field">
+                            <label htmlFor="" className="label">Email</label>
+                            <div className="control has-icons-left">
+                                <input type="email" placeholder="e.g. bobsmith@gmail.com" className="input" value={email} onChange={e => setEmail(e.target.value)} required />
                                 <span className="icon is-small is-left">
                                     <i className="fa fa-envelope"></i>
                                 </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="field">
-                        <label htmlFor="" className="label">Password</label>
-                        <div className="control has-icons-left">
-                            <input type="password" placeholder="*******" className="input" value={password} onChange={e => setPassword(e.target.value)} required />
-                            <span className="icon is-small is-left">
-                                <i className="fa fa-lock"></i>
-                            </span>
+                        <div className="field">
+                            <label htmlFor="" className="label">Password</label>
+                            <div className="control has-icons-left">
+                                <input type="password" placeholder="*******" className="input" value={password} onChange={e => setPassword(e.target.value)} required />
+                                <span className="icon is-small is-left">
+                                    <i className="fa fa-lock"></i>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="field">
-                        <button id="signupSubmit" type="submit" value="UpdateUser" className="button is-success">
-                            Submit
-                        </button>
-                    </div>
-                </fetcher.Form>
-            </div>
+                        <div className="field">
+                            <button id="signupSubmit" type="submit" value="UpdateUser" className="button is-success">
+                                Submit
+                            </button>
+                        </div>
+                    </fetcher.Form>
+                </div>
             </Modal>
         </>
     );

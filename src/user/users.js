@@ -20,35 +20,49 @@ const sort_by_id = '/id';
 // keeps track of the current sort
 let current_sort;
 
-export async function loader() {
-    // default to sort by username if not defined
-    const response = current_sort !== undefined ? await fetch(GET_USERS_PATH + current_sort) : await fetch(GET_USERS_PATH + sort_by_username);
-    // If the status code is not in the range 200-299,
-    // we still try to parse and throw it.
-    if (!response.ok) {
-        const error = new Error('An error occurred while fetching users');
-        // Attach extra info to the error object.
-        error.info = await response.json();
-        error.status = response.status;
-        throw error;
-    }
-    if(response.redirected == true) { // catching this and returning null as to not get console error
-        return null;
-    }
+import api from '../api';
 
-    return response.json();
+export async function loader() {
+    try {
+        const url = current_sort !== undefined ? GET_USERS_PATH + current_sort : GET_USERS_PATH + sort_by_username;
+        const response = await api.get(url);
+
+        // Axios doesn’t expose a redirected flag,
+        // so if you rely on redirects, handle them at server or proxy level.
+        // Here, we skip that since Axios follows redirects automatically.
+
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            // Error response from server
+            if (error.response.status >= 300 && error.response.status < 400) {
+                // Handle redirect status codes if needed
+                // Since fetch’s redirected isn't available, you might handle redirects differently
+                return null;
+            }
+            const err = new Error('An error occurred while fetching users');
+            err.info = error.response.data || null;
+            err.status = error.response.status;
+            throw err;
+        } else {
+            // Network or other errors
+            throw error;
+        }
+    }
 }
 
 export async function delete_user(username) {
-    const requestOptions = {
-        method: Common.POST,
-        // redirect: "follow",
-        entity: username,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(username)
-    };
-    
-    return await fetch(DELETE_USER_PATH, requestOptions);
+    try {
+        const response = await api.post(DELETE_USER_PATH, username, {
+            headers: { 'Content-Type': 'application/json' }
+        });
+        return response.data;
+    } catch (error) {
+        const err = new Error('Failed to delete user.');
+        err.status = error.response?.status || 500;
+        err.info = error.response?.data || null;
+        throw err;
+    }
 }
 
 export default function Users() {
@@ -56,14 +70,14 @@ export default function Users() {
     const [users, setUsers] = React.useState(useLoaderData());
     const [user_index, setUserIndex] = React.useState(0);
     const fetcher = useFetcher();
-    
+
     React.useEffect(() => { // TODO: this calls the api a lot. figure out a resolution.
         loader().then((response) => {
             setUsers(response);
         });
     }, [users]); // TODO: can i use effect when button pressed?
 
-    if (!users) return(
+    if (!users) return (
         <div className='container m-6'>
             <progress className="progress is-small is-primary" max="100">15%</progress>
             <progress className="progress is-danger" max="100">30%</progress>
@@ -73,10 +87,10 @@ export default function Users() {
     )
 
     const search_filter = [
-        {title: 'username', link: 'www.cool.com'},
-        {title: 'email', link: 'www.manohman.com'}, 
-        {title: 'id', link: 'www.link.com'},
-        {title: 'search all fields', link: 'www.all.com'}
+        { title: 'username', link: 'www.cool.com' },
+        { title: 'email', link: 'www.manohman.com' },
+        { title: 'id', link: 'www.link.com' },
+        { title: 'search all fields', link: 'www.all.com' }
     ]
 
     return (
@@ -92,7 +106,7 @@ export default function Users() {
                             <th>#</th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_username;}}
+                                    onClick={() => { current_sort = sort_by_username; }}
                                     data-tooltip-id="sort-by-username"
                                     data-tooltip-html={
                                         "Sort by username"
@@ -105,7 +119,7 @@ export default function Users() {
                             </th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_email;}}
+                                    onClick={() => { current_sort = sort_by_email; }}
                                     data-tooltip-id="sort-by-email"
                                     data-tooltip-html={
                                         "Sort by email"
@@ -120,7 +134,7 @@ export default function Users() {
                             <th><abbr title="User Authorizations">Birth</abbr></th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_id;}}
+                                    onClick={() => { current_sort = sort_by_id; }}
                                     data-tooltip-id="sort-by-id"
                                     data-tooltip-html={
                                         "Sort by id"
@@ -142,7 +156,7 @@ export default function Users() {
                             <th>#</th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_username;}}
+                                    onClick={() => { current_sort = sort_by_username; }}
                                     data-tooltip-id="sort-by-username"
                                     data-tooltip-html={
                                         "Sort by username"
@@ -155,7 +169,7 @@ export default function Users() {
                             </th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_email;}}
+                                    onClick={() => { current_sort = sort_by_email; }}
                                     data-tooltip-id="sort-by-email"
                                     data-tooltip-html={
                                         "Sort by email"
@@ -170,7 +184,7 @@ export default function Users() {
                             <th><abbr title="User Creation Date/Time">Birth</abbr></th>
                             <th>
                                 <a
-                                    onClick={() => {current_sort = sort_by_id;}}
+                                    onClick={() => { current_sort = sort_by_id; }}
                                     data-tooltip-id="sort-by-id"
                                     data-tooltip-html={
                                         "Sort by id"
@@ -188,7 +202,7 @@ export default function Users() {
                         </tr>
                     </tfoot>
                     <tbody>
-                        {users.map(( user, index ) => (
+                        {users.map((user, index) => (
                             <tr key={user.userDetails.username}>
                                 <th>{index + 1}</th>
                                 <td>{user.userDetails.username}</td>
@@ -212,10 +226,10 @@ export default function Users() {
                                     <UserModal user_id={user.id} />
                                 </td>
                                 <td>
-                                    <UserDelete user_username={user.userDetails.username} user_id={user.id}/>
+                                    <UserDelete user_username={user.userDetails.username} user_id={user.id} />
                                 </td>
                                 <td>
-                                    <UpdateUser user_id={user.id} userDetails={user.userDetails} user_email={user.email} metaData={user.metaData}/>
+                                    <UpdateUser user_id={user.id} userDetails={user.userDetails} user_email={user.email} metaData={user.metaData} />
                                 </td>
                             </tr>
                         ))}
@@ -223,7 +237,7 @@ export default function Users() {
                 </table>
             </div>
             <div className='container m-4'>
-                <SignupModal btn={<span><FontAwesomeIcon icon={faPlus} />&nbsp;&nbsp;Add new user</span>} create_user_path={CREATE_USER_PATH}/>
+                <SignupModal btn={<span><FontAwesomeIcon icon={faPlus} />&nbsp;&nbsp;Add new user</span>} create_user_path={CREATE_USER_PATH} />
             </div>
 
         </>

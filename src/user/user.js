@@ -2,11 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData } from "react-router-dom";
 import Section from '@rumpushub/common-react/dist/components/section';
 
+import api from '../api'; // maybe import from common-react
+
 export async function loader({ params }) {
-    return await fetch(`/api/user/${params.userId}`);
+    try {
+        const response = await api.get(`/api/user/${params.userId}`);
+        return response.data;
+    } catch (error) {
+        const err = new Error('Failed to load user.');
+        err.status = error.response?.status || 500;
+        err.info = error.response?.data || null;
+        throw err;
+    }
 }
 
-export default function User({id}) {
+
+export default function User({ id }) {
     const user_template_url = '/view/template/user/' + id + '/currentUserTemplate';
     // const data = useLoaderData();
     const [rumpus_admin, setRumpusAdmin] = useState(undefined);
@@ -14,7 +25,7 @@ export default function User({id}) {
 
     useEffect(() => {
         console.log('useEffect');
-        if(user_template_url !== undefined) {
+        if (user_template_url !== undefined) {
             console.log(user_template_url);
             setRumpusAdmin(
                 <>
@@ -25,8 +36,8 @@ export default function User({id}) {
         }
     }, [user_template_url]);
 
-    if(rumpus_admin === undefined || rumpus_admin === null || rumpus_admin.length === 0) {
-        return(
+    if (rumpus_admin === undefined || rumpus_admin === null || rumpus_admin.length === 0) {
+        return (
             <div className='container m-6'>
                 <progress className="progress is-small is-primary" max="100">15%</progress>
                 <progress className="progress is-danger" max="100">30%</progress>
@@ -53,7 +64,7 @@ export default function User({id}) {
     //                             <li className="is-active"><a href="#" aria-current="page">Admin</a></li>
     //                         </ul>
     //                     </nav>
-                        
+
     //                     <section className="hero is-info welcome is-small">
     //                         <div className="hero-body">
     //                             <div className="container">

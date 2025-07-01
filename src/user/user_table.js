@@ -1,7 +1,11 @@
 const React = require('react');
 import useSWR from 'swr';
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+import api from '../api';
+
+const fetcher = (url, config) =>
+  api(url, config).then((res) => res.data);
+
 
 function UserTable() {
     const { data, error } = useSWR(
