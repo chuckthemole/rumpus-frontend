@@ -4,8 +4,7 @@ import { Outlet } from 'react-router-dom';
 // import Footer from './common/footer';
 // import Header from './common/header';
 // import Section from './common/section';
-import { Footer, Header, Section, RumpusQuillForm, RumpusQuill } from '@rumpushub/common-react'
-import { CREATE_USER_PATH, getCurrentUserAuthorities, isCurrentUserAuthenticated } from './rumpus';
+import { Footer, Header, Section, RumpusQuillForm, RumpusQuill, AuthRoot } from '@rumpushub/common-react'
 // import RumpusQuillForm from './common/rumpus_quill_form';
 // import RumpusQuill from './common/rumpus_quill';
 
@@ -15,19 +14,21 @@ export default function App() {
 
     return (
         <>
-            <Header header_path={'/view/header'} />
-            <div className='columns is-centered'>
+            <AuthRoot>
+                <Header header_path={'/view/header'} />
+                <div className='columns is-centered'>
 
-                {/* <RumpusQuillForm quill={<RumpusQuill />} /> */}
+                    {/* <RumpusQuillForm quill={<RumpusQuill />} /> */}
 
 
-                <div className='column'></div>
-                <div className='column is-three-fifths'>
-                    <Outlet />
+                    <div className='column'></div>
+                    <div className='column is-three-fifths'>
+                        <Outlet />
+                    </div>
+                    <div className='column'></div>
                 </div>
-                <div className='column'></div>
-            </div>
-            <Footer footer_path={"/view/footer"} />
+                <Footer footer_path={"/view/footer"} />
+            </AuthRoot>
         </>
     )
 }

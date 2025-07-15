@@ -8,7 +8,7 @@ import UpdateUser from './user_update_modal';
 import UserDelete from './user_delete_modal';
 import { ConvertEpochToDate } from '@rumpushub/common-react/dist/components/common';
 import { useLoaderData, Link, useFetcher } from 'react-router-dom';
-import SignupModal from '@rumpushub/common-react/dist/components/signup_modal';
+import { SignupModal } from '@rumpushub/common-react';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { Dropdown, get_selected } from '@rumpushub/common-react';
 import UserModal from './user_modal';
