@@ -1,19 +1,21 @@
-import { createApiClient, setApi } from '@rumpushub/common-react'
-const api = createApiClient(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080');
-setApi(api); // inject the instance early
-
+import "./setupEnv";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    RouterProvider
+} from "react-router-dom";
 
 import App from "./App";
-import Users, { delete_user, loader as usersLoader } from './user/users';
-import User, { loader as userLoader } from './user/user';
-import Admin from "./admin/admin";
-import { ErrorPage, Landing, Logout } from '@rumpushub/common-react'
+import '@rumpushub/common-react/dist/index.css';
+import { ErrorPage, Logout } from '@rumpushub/common-react';
 
-import '../generated/css/rumpus-styles.css';
-import '../generated/css/Spinner.css';
+import Tabs from './dashboards/tabs';
+import LandingPageBody from './rumpus/landing';
+import BugReportForm from "./rumpus/bug_report_form";
+
+// import Leaderboard from "./buildshift/notion/leaderboard";
+// import NotionTasks from "./buildshift/notion/notion_tasks";
 
 const router = createBrowserRouter([
     {
@@ -27,28 +29,18 @@ const router = createBrowserRouter([
             },
             {
                 index: true, // default child for "/"
-                element: <Landing />,
+                element: <LandingPageBody />,
                 // loader: landingLoader,
                 errorElement: <ErrorPage />
             },
             {
                 path: 'admin',
-                element: <Admin />,
-                loader: usersLoader,
+                element: <Tabs />,
                 errorElement: <ErrorPage />,
-                children: [
-                    {
-                        path: 'user/:userId',
-                        element: <User />,
-                        loader: userLoader,
-                        errorElement: <ErrorPage />,
-                    }
-                ]
             },
             {
-                path: 'user/:userId',
-                element: <User />,
-                loader: userLoader,
+                path: 'bug_report',
+                element: <BugReportForm />,
                 errorElement: <ErrorPage />,
             },
             {

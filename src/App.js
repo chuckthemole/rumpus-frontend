@@ -1,34 +1,52 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-
-// import Footer from './common/footer';
-// import Header from './common/header';
-// import Section from './common/section';
-import { Footer, Header, Section, RumpusQuillForm, RumpusQuill, AuthRoot } from '@rumpushub/common-react'
-// import RumpusQuillForm from './common/rumpus_quill_form';
-// import RumpusQuill from './common/rumpus_quill';
+import {
+    Footer,
+    Header,
+    Section,
+    RumpusQuillForm,
+    RumpusQuill,
+    AuthRoot,
+    useColorSettings,
+    LayoutSettingsProvider,
+    useLayoutSettings
+} from '@rumpushub/common-react';
 
 export default function App() {
+    const { initColors } = useColorSettings();
 
-    console.log('rumpus React version:', React.version);
+    useEffect(() => {
+        initColors();
+    }, []);
 
     return (
-        <>
-            <AuthRoot>
-                <Header header_path={'/view/header'} />
-                <div className='columns is-centered'>
+        <LayoutSettingsProvider>
+            <div className="app-container">
+                <AuthRoot className="app-inner">
+                    <Header
+                        header_path={"/view/header"}
+                    />
 
-                    {/* <RumpusQuillForm quill={<RumpusQuill />} /> */}
+                    <main className="app-content columns is-centered">
+                        <div className="column"></div>
+                        <LayoutContent />
+                        <div className="column"></div>
+                    </main>
 
+                    <Footer footer_path={"/view/footer"} />
+                </AuthRoot>
+            </div>
+        </LayoutSettingsProvider>
+    );
+}
 
-                    <div className='column'></div>
-                    <div className='column is-three-fifths'>
-                        <Outlet />
-                    </div>
-                    <div className='column'></div>
-                </div>
-                <Footer footer_path={"/view/footer"} />
-            </AuthRoot>
-        </>
-    )
+// Separate component to consume layout context for main content
+function LayoutContent() {
+    const { layout } = useLayoutSettings();
+
+    return (
+        <div className={`column ${layout.columnWidth}`}>
+            <Outlet />
+        </div>
+    );
 }

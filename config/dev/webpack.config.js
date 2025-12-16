@@ -3,7 +3,12 @@ const webpack = require('webpack');
 require('dotenv').config();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log('ENV VALUE:', process.env.REACT_APP_API_BASE_URL);
+const apiBaseURL =
+    process.env.REACT_APP_ENV === 'production'
+        ? process.env.REACT_APP_API_BASE_URL_PRODUCTION
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+
+console.log('ENV VALUE Base URL:', apiBaseURL);
 
 module.exports = {
     mode: 'development',
@@ -30,15 +35,48 @@ module.exports = {
             'react-router-dom': path.resolve(__dirname, '../../node_modules/react-router-dom')
         },
         extensions: ['.mjs', '.js', '.ts', '.svg'],
-        symlinks: true
+        symlinks: true,
+        fallback: {
+            stream: require.resolve('stream-browserify'),
+            buffer: require.resolve('buffer/')
+        }
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.REACT_APP_API_BASE_URL': JSON.stringify(process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080')
+            'process.env.REACT_APP_API_BASE_URL': JSON.stringify(
+                process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'
+            ),
+            'process.env.REACT_APP_API_RUMPSHIFT_URL': JSON.stringify(
+                process.env.REACT_APP_API_RUMPSHIFT_URL || 'http://localhost:8000'
+            ),
+            'process.env.REACT_APP_API_BASE_URL_PRODUCTION': JSON.stringify(
+                process.env.REACT_APP_API_BASE_URL_PRODUCTION
+            ),
+            'process.env.REACT_APP_API_RUMPSHIFT_URL_PRODUCTION': JSON.stringify(
+                process.env.REACT_APP_API_RUMPSHIFT_URL_PRODUCTION
+            ),
+            'process.env.REACT_APP_ENV': JSON.stringify(
+                process.env.REACT_APP_ENV || 'development'
+            ),
+            'process.env.REACT_APP_DEFAULT_FONT': JSON.stringify(
+                process.env.REACT_APP_DEFAULT_FONT || '"Nunito", sans-serif'
+            ),
+            'process.env.REACT_APP_SECONDARY_FONT': JSON.stringify(
+                process.env.REACT_APP_SECONDARY_FONT || '"Roboto Mono", monospace'
+            ),
+            'process.env.REACT_APP_BACKUP_PRIMARY_FONT': JSON.stringify(
+                process.env.REACT_APP_BACKUP_PRIMARY_FONT || '"Source Code Pro", monospace'
+            ),
+            'process.env.REACT_APP_BACKUP_SECONDARY_FONT': JSON.stringify(
+                process.env.REACT_APP_BACKUP_SECONDARY_FONT || '"Source Code Pro", monospace'
+            )
         }),
         new HtmlWebpackPlugin({
             template: './public/index.html', // make sure this file exists!
             filename: 'index.html'
+        }),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
         }),
     ],
     devServer: {
