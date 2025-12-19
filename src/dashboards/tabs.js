@@ -59,19 +59,19 @@ export default function Tabs() {
         {
             key: "analytics",
             label: "Analytics",
-            component: (
-                <CounterSessionChart
-                    apiUrl="/api/rumpshift-analytics/counter-session-data/"
-                    showControls={true}
-                    simplifiedLevel={SimplifiedLevel.DETAILED}
-                />
-            ),
+            // component: (
+            //     <CounterSessionChart
+            //         apiUrl="/api/rumpshift-analytics/counter-session-data/"
+            //         showControls={true}
+            //         simplifiedLevel={SimplifiedLevel.DETAILED}
+            //     />
+            // ),
         },
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Apis tab
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-        { key: "apis", label: "Apis", component: <ApiDocsSelector /> },
+        // { key: "apis", label: "Apis", component: <ApiDocsSelector /> },
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Logs tab
