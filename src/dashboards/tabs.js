@@ -5,7 +5,8 @@ import Home from "./tab_home";
 import MachineDashboard from "./machine_dashboard";
 import MachineTaskManager from "./machine_task_manager";
 import LogDashboard from "./log_dashboard";
-// import ApiDocsSelector from "../buildshift/openapi/api_docs_selector";
+import ApiDocsSelector from "../rumpus/openapi/api_docs_selector";
+import EditPersonalPage from "../rumpus/personal_page_editor";
 
 // * * * rumpushub * * * 
 import {
@@ -42,7 +43,7 @@ export default function Tabs() {
                 />
             ),
         },
-        
+
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Machine task manager tab
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -71,7 +72,15 @@ export default function Tabs() {
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Apis tab
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-        // { key: "apis", label: "Apis", component: <ApiDocsSelector /> },
+        { key: "apis", label: "Apis", component: <ApiDocsSelector /> },
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+        // Personal page tab
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+        {
+            key: "personalPage", label: "Personal Page", component: <EditPersonalPage />
+        },
+
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Logs tab

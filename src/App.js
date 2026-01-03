@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
     Footer,
@@ -9,7 +9,9 @@ import {
     AuthRoot,
     useColorSettings,
     LayoutSettingsProvider,
-    useLayoutSettings
+    useLayoutSettings,
+    getApi,
+    LOGGER
 } from '@rumpushub/common-react';
 
 export default function App() {
@@ -18,6 +20,18 @@ export default function App() {
     useEffect(() => {
         initColors();
     }, []);
+
+    // const fetcher = useCallback(async () => {
+    //     const api = getApi();
+    //     const response = await api.get('/api/current_user');
+    //     LOGGER.debug('In app');
+    //     LOGGER.debug(response);
+    // });
+
+    // fetcher();
+    // const debug_response = api.get('/view/resources');
+    // LOGGER.debug('debug_response');
+    // LOGGER.debug(debug_response);
 
     return (
         <LayoutSettingsProvider>
