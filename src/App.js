@@ -10,15 +10,18 @@ import {
     useColorSettings,
     LayoutSettingsProvider,
     useLayoutSettings,
+    useFontSettings,
     getApi,
     LOGGER
 } from '@rumpushub/common-react';
 
 export default function App() {
     const { initColors } = useColorSettings();
+    const { initFonts } = useFontSettings();
 
     useEffect(() => {
         initColors();
+        initFonts();
     }, []);
 
     // const fetcher = useCallback(async () => {
