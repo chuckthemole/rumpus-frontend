@@ -30,24 +30,24 @@ export default function Tabs() {
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Machines tab
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-        {
-            key: "machines",
-            label: "Machines",
-            component: (
-                <MachineDashboard
-                    persistence={
-                        ApiPersistence(
-                            "/api/arduino_consumer/arduino/get-machines/",
-                            "RUMPSHIFT_API"
-                        )}
-                />
-            ),
-        },
+        // {
+        //     key: "machines",
+        //     label: "Machines",
+        //     component: (
+        //         <MachineDashboard
+        //             persistence={
+        //                 ApiPersistence(
+        //                     "/api/arduino_consumer/arduino/get-machines/",
+        //                     "RUMPSHIFT_API"
+        //                 )}
+        //         />
+        //     ),
+        // },
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Machine task manager tab
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-        { key: "machineTaskManager", label: "Machine Task Manager", component: <MachineTaskManager /> },
+        // { key: "machineTaskManager", label: "Machine Task Manager", component: <MachineTaskManager /> },
 
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         // Site settingsz tab
