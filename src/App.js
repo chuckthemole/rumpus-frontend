@@ -7,61 +7,61 @@ import {
     RumpusQuillForm,
     RumpusQuill,
     AuthRoot,
-    useColorSettings,
     LayoutSettingsProvider,
     useLayoutSettings,
     FontSettingsProvider,
+    ColorSettingsProvider,
     getApi,
     LOGGER
 } from '@rumpushub/common-react';
 
 export default function App() {
     const appRef = useRef(null);
-    const { initColors } = useColorSettings();
-
-    useEffect(() => {
-        initColors();
-    }, []);
 
     return (
         <LayoutSettingsProvider>
             <div ref={appRef} className="app-container">
-                <FontSettingsProvider
+                <ColorSettingsProvider
                     target={appRef}
-                    persist
-                    slots={{
-                        primary: {
-                            cssVar: "--primary-font",
-                            default: "Inter",
-                            storageKey: "primaryFont",
-                        },
-                        secondary: {
-                            cssVar: "--secondary-font",
-                            default: "Arial",
-                            storageKey: "secondaryFont",
-                        },
-                        quill: {
-                            cssVar: "--quill-font",
-                            default: "Arial",
-                            storageKey: "quillFont"
-                        }
-                    }}
                 >
-                    <AuthRoot className="app-inner">
-                        <Header
-                            header_path={"/view/header"}
-                        />
 
-                        <main className="app-content columns is-centered">
-                            <div className="column"></div>
-                            <LayoutContent />
-                            <div className="column"></div>
-                        </main>
+                    <FontSettingsProvider
+                        target={appRef}
+                        persist
+                        slots={{
+                            primary: {
+                                cssVar: "--primary-font",
+                                default: "Inter",
+                                storageKey: "primaryFont",
+                            },
+                            secondary: {
+                                cssVar: "--secondary-font",
+                                default: "Arial",
+                                storageKey: "secondaryFont",
+                            },
+                            quill: {
+                                cssVar: "--quill-font",
+                                default: "Arial",
+                                storageKey: "quillFont"
+                            }
+                        }}
+                    >
+                        <AuthRoot className="app-inner">
+                            <Header
+                                header_path={"/view/header"}
+                            />
 
-                        <Footer footer_path={"/view/footer"} />
-                    </AuthRoot>
+                            <main className="app-content columns is-centered">
+                                <div className="column"></div>
+                                <LayoutContent />
+                                <div className="column"></div>
+                            </main>
 
-                </FontSettingsProvider>
+                            <Footer footer_path={"/view/footer"} />
+                        </AuthRoot>
+
+                    </FontSettingsProvider>
+                </ColorSettingsProvider>
             </div>
         </LayoutSettingsProvider>
     );
