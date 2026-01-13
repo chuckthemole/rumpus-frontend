@@ -4,15 +4,16 @@ import { LOGGER, PersonalPageEditor } from '@rumpushub/common-react';
 export default function EditPersonalPage() {
     const handleSuccess = (data) => {
         LOGGER.debug('Personal page updated!', data);
-        alert('Your personal page has been updated successfully!');
     };
 
     return (
         <div className="container">
             <h1 className="title">Edit Personal Page</h1>
             <PersonalPageEditor
-                endpoint="/api/personal-page" // your Spring Boot endpoint
+                endpoint="/api/personal-page"
                 onSuccess={handleSuccess}
+
+                // TODO: we're not using this right now. Do we want this to be a param?
                 fields={[
                     {
                         name: 'name',
@@ -29,7 +30,7 @@ export default function EditPersonalPage() {
                     {
                         name: 'aboutMe',
                         label: 'About Me',
-                        type: 'rich_text' // we'll use Quill for this field
+                        type: 'rich_text'
                     },
                     {
                         name: 'profileImage',
