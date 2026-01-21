@@ -19,11 +19,18 @@ import {
 
 export default function App() {
     const appRef = useRef(null);
+    const [appElement, setAppElement] = useState(null);
+
+    useEffect(() => {
+        if (appRef.current) {
+            setAppElement(appRef.current);
+        }
+    }, []);
 
     return (
         <LayoutSettingsProvider>
             <div ref={appRef} className="app-container">
-                <RumpusModalProvider>
+                <RumpusModalProvider appElement={appElement}>
                     <ColorSettingsProvider
                         target={appRef}
                         colorLayouts={predefinedColorLayouts}
