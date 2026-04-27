@@ -8,7 +8,12 @@ import {
 
 import App from "./App";
 import '@rumpushub/common-react/dist/index.css';
-import { ErrorPage, Logout } from '@rumpushub/common-react';
+import {
+    ErrorPage,
+    Logout,
+    PersonalPageEditor,
+    PersonalProfilePage
+} from '@rumpushub/common-react';
 
 import Tabs from './dashboards/tabs';
 import LandingPageBody from './rumpus/landing';
@@ -25,7 +30,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: 'error',
-                element: <h1>Something went wrong! </h1>,
+                element: <h1>Something went wrong!</h1>,
             },
             {
                 index: true, // default child for "/"
@@ -59,9 +64,19 @@ const router = createBrowserRouter([
                 },
                 // loader: usersLoader,
                 // errorElement: <ErrorPage />
-            }
+            },
+            {
+                path: 'editor',
+                element: <PersonalPageEditor />,
+                errorElement: <ErrorPage />
+            },
         ],
     },
+    {
+        path: 'profile/:id',
+        element: <PersonalProfilePage />,
+        // errorElement: <ErrorPage />
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

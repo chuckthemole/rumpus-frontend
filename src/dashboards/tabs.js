@@ -14,6 +14,7 @@ import {
     ApiPersistence,
     AdminSiteSettingsDashboard,
     EntityTaskManager,
+    LocalStorageExplorer
 } from "@rumpushub/common-react";
 
 export default function Tabs() {
@@ -79,6 +80,13 @@ export default function Tabs() {
         // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         {
             key: "personalPage", label: "Personal Page", component: <EditPersonalPage />
+        },
+
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+        // Local storage explorer tab
+        // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+        {
+            key: "localStorageExplorer", label: "Local Storage Explorer", component: <LocalStorageExplorer />
         },
 
 

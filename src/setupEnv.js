@@ -3,8 +3,29 @@ import {
     setApi,
     setNamedApi,
     setLoggingEnv,
-    LOGGER
+    LOGGER,
+    eventLogger,
+    LocalPersistence,
+    getEventStore
 } from '@rumpushub/common-react';
+
+// ----------------------------
+// Setup EventLogger transport
+// ----------------------------
+const eventStore = getEventStore(LocalPersistence);
+eventLogger.setTransport(
+    async (payload) => {
+        await Promise.all([
+            eventStore.create(payload),
+
+            // TODO: transport can track in other transports.
+            // analytics.track(payload),
+            // consoleTransport(payload),
+        ]);
+        // const key = `event:${payload.event}:${Date.now()}`;
+        // await LocalPersistence.setItem(key, JSON.stringify(payload)); // TODO: this should be api transport
+    }
+);
 
 // ----------------------------
 // Setup API Clients

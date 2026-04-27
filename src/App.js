@@ -1,20 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
     Footer,
     Header,
-    Section,
-    RumpusQuillForm,
-    RumpusQuill,
     AuthRoot,
     LayoutSettingsProvider,
     useLayoutSettings,
     FontSettingsProvider,
     ColorSettingsProvider,
     RumpusModalProvider,
-    getApi,
     LOGGER,
-    predefinedColorLayouts
+    LocalPersistence
 } from '@rumpushub/common-react';
 
 export default function App() {
@@ -23,40 +19,45 @@ export default function App() {
 
     useEffect(() => {
         if (appRef.current) {
+            LOGGER.debug("[App] setting app element to appRef current.");
             setAppElement(appRef.current);
+        } else {
+            LOGGER.debug("[App] no appRef current.");
         }
     }, []);
 
     return (
         <LayoutSettingsProvider>
             <div ref={appRef} className="app-container">
-                <RumpusModalProvider appElement={appElement}>
-                    <ColorSettingsProvider
-                        target={appRef}
-                        colorLayouts={predefinedColorLayouts}
-                    >
 
-                        <FontSettingsProvider
-                            target={appRef}
-                            persist
-                            slots={{
-                                primary: {
-                                    cssVar: "--primary-font",
-                                    default: "Inter",
-                                    storageKey: "primaryFont",
-                                },
-                                secondary: {
-                                    cssVar: "--secondary-font",
-                                    default: "Arial",
-                                    storageKey: "secondaryFont",
-                                },
-                                quill: {
-                                    cssVar: "--quill-font",
-                                    default: "Arial",
-                                    storageKey: "quillFont"
-                                }
-                            }}
-                        >
+                <ColorSettingsProvider
+                    target={appElement}
+                    persistence={LocalPersistence}
+                    defaultLayout="Ocean Blue"
+                    profileId={"global"}
+                >
+                    <FontSettingsProvider
+                        target={appElement}
+                        persistence={LocalPersistence}
+                        slots={{
+                            primary: {
+                                cssVar: "--primary-font",
+                                default: "Inter",
+                                storageKey: "primaryFont",
+                            },
+                            secondary: {
+                                cssVar: "--secondary-font",
+                                default: "Arial",
+                                storageKey: "secondaryFont",
+                            },
+                            quill: {
+                                cssVar: "--quill-font",
+                                default: "Arial",
+                                storageKey: "quillFont"
+                            }
+                        }}
+                    >
+                        <RumpusModalProvider appElement={appElement}>
                             <AuthRoot className="app-inner">
                                 <Header
                                     header_path={"/view/header"}
@@ -70,10 +71,9 @@ export default function App() {
 
                                 <Footer footer_path={"/view/footer"} />
                             </AuthRoot>
-
-                        </FontSettingsProvider>
-                    </ColorSettingsProvider>
-                </RumpusModalProvider>
+                        </RumpusModalProvider>
+                    </FontSettingsProvider>
+                </ColorSettingsProvider>
             </div>
         </LayoutSettingsProvider>
     );
