@@ -11,7 +11,8 @@ import {
     RumpusModalProvider,
     LOGGER,
     LocalPersistence,
-    EventLoggerProvider
+    EventLoggerProvider,
+    CurrentUserProvider
 } from '@rumpushub/common-react';
 
 export default function App() {
@@ -62,19 +63,21 @@ export default function App() {
                         <RumpusModalProvider appElement={appElement}>
 
                             <AuthRoot className="app-inner">
-                                <EventLoggerProvider>
-                                    <Header
-                                        header_path={"/view/header"}
-                                    />
+                                <CurrentUserProvider>
+                                    <EventLoggerProvider>
+                                        <Header
+                                            header_path={"/view/header"}
+                                        />
 
-                                    <main className="app-content columns is-centered">
-                                        <div className="column"></div>
-                                        <LayoutContent />
-                                        <div className="column"></div>
-                                    </main>
+                                        <main className="app-content columns is-centered">
+                                            <div className="column"></div>
+                                            <LayoutContent />
+                                            <div className="column"></div>
+                                        </main>
 
-                                    <Footer footer_path={"/view/footer"} />
-                                </EventLoggerProvider>
+                                        <Footer footer_path={"/view/footer"} />
+                                    </EventLoggerProvider>
+                                </CurrentUserProvider>
                             </AuthRoot>
 
                         </RumpusModalProvider>
