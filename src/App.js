@@ -1,18 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import {
-    Footer,
-    Header,
-    AuthRoot,
-    LayoutSettingsProvider,
-    useLayoutSettings,
-    FontSettingsProvider,
-    ColorSettingsProvider,
-    RumpusModalProvider,
     LOGGER,
-    LocalPersistence,
-    EventLoggerProvider,
-    CurrentUserProvider
+    AppProviders,
+    AppShell
 } from '@rumpushub/common-react';
 
 export default function App() {
@@ -28,74 +19,43 @@ export default function App() {
         }
     }, []);
 
-    return (
-        <LayoutSettingsProvider>
-            <div ref={appRef} className="app-container">
+    const appConfig = {
+        auth: true,
+        user: true,
+        logger: true,
+        modal: true,
 
-                <ColorSettingsProvider
-                    target={appElement}
-                    persistence={LocalPersistence}
-                    defaultLayout="Ocean Blue"
-                    profileId={"global"}
-                >
-                    <FontSettingsProvider
-                        target={appElement}
-                        persistence={LocalPersistence}
-                        slots={{
-                            primary: {
-                                cssVar: "--primary-font",
-                                default: "Inter",
-                                storageKey: "primaryFont",
-                            },
-                            secondary: {
-                                cssVar: "--secondary-font",
-                                default: "Arial",
-                                storageKey: "secondaryFont",
-                            },
-                            quill: {
-                                cssVar: "--quill-font",
-                                default: "Arial",
-                                storageKey: "quillFont"
-                            }
-                        }}
-                    >
-
-                        <RumpusModalProvider appElement={appElement}>
-
-                            <AuthRoot className="app-inner">
-                                <CurrentUserProvider>
-                                    <EventLoggerProvider>
-                                        <Header
-                                            header_path={"/view/header"}
-                                        />
-
-                                        <main className="app-content columns is-centered">
-                                            <div className="column"></div>
-                                            <LayoutContent />
-                                            <div className="column"></div>
-                                        </main>
-
-                                        <Footer footer_path={"/view/footer"} />
-                                    </EventLoggerProvider>
-                                </CurrentUserProvider>
-                            </AuthRoot>
-
-                        </RumpusModalProvider>
-
-                    </FontSettingsProvider>
-                </ColorSettingsProvider>
-            </div>
-        </LayoutSettingsProvider>
-    );
-}
-
-// Separate component to consume layout context for main content
-function LayoutContent() {
-    const { layout } = useLayoutSettings();
+        theme: {
+            enabled: true,
+            color: {
+                defaultLayout: "Sunset Glow",
+                profileId: "global",
+            },
+            font: {
+                slots: {
+                    primary: {
+                        cssVar: "--primary-font",
+                        default: "Inter",
+                        storageKey: "primaryFont",
+                    },
+                    secondary: {
+                        cssVar: "--secondary-font",
+                        default: "Arial",
+                        storageKey: "secondaryFont",
+                    },
+                    quill: {
+                        cssVar: "--quill-font",
+                        default: "Arial",
+                        storageKey: "quillFont",
+                    },
+                },
+            },
+        },
+    };
 
     return (
-        <div className={`column ${layout.columnWidth}`}>
-            <Outlet />
-        </div>
+        <AppProviders config={appConfig}>
+            <AppShell />
+        </AppProviders>
     );
 }
