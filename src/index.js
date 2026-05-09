@@ -12,12 +12,14 @@ import {
     ErrorPage,
     Logout,
     PersonalPageEditor,
-    PersonalProfilePage
+    PersonalProfilePage,
+    UserLandingPage
 } from '@rumpushub/common-react';
 
 import Tabs from './dashboards/tabs';
 import LandingPageBody from './rumpus/landing';
 import BugReportForm from "./rumpus/bug_report_form";
+import UserHomeRedirect from "./rumpus/user/user-home-redirect";
 
 // import Leaderboard from "./buildshift/notion/leaderboard";
 // import NotionTasks from "./buildshift/notion/notion_tasks";
@@ -32,12 +34,24 @@ const router = createBrowserRouter([
                 path: 'error',
                 element: <h1>Something went wrong!</h1>,
             },
+
             {
-                index: true, // default child for "/"
-                element: <LandingPageBody />,
-                // loader: landingLoader,
+                index: true,
+                element: <UserHomeRedirect />,
                 errorElement: <ErrorPage />
             },
+            {
+                path: "home",
+                element: <UserLandingPage />,
+                errorElement: <ErrorPage />
+            },
+
+            // {
+            //     index: true, // default child for "/"
+            //     element: <LandingPageBody />,
+            //     // loader: landingLoader,
+            //     errorElement: <ErrorPage />
+            // },
             {
                 path: 'admin',
                 element: <Tabs />,
