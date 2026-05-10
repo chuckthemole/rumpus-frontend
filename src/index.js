@@ -13,6 +13,7 @@ import {
     Logout,
     PersonalPageEditor,
     PersonalProfilePage,
+    UserProfilePage
 } from '@rumpushub/common-react';
 
 import AdminDashboard from './dashboards/admin_dashboard';
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
             {
                 path: "home",
                 element: <RumpusUserLandingPage />,
+                errorElement: <ErrorPage />
+            },
+            {
+                path: "user/profile",
+                element: <UserProfilePage />,
                 errorElement: <ErrorPage />
             },
 
