@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import { UserLandingPage } from "@rumpushub/common-react";
+import { RUMPUS_USER_NAVIGATION } from "./navigation/rumpus-user-navigation.config";
 
 export default function RumpusUserLandingPage() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function RumpusUserLandingPage() {
         <UserLandingPage
             activePath={location.pathname}
             onNavigate={(item) => navigate(item.href)}
+            sidebarSections={RUMPUS_USER_NAVIGATION}
         />
     );
 
