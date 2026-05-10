@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
     createBrowserRouter,
-    RouterProvider
+    RouterProvider,
 } from "react-router-dom";
 
 import App from "./App";
@@ -13,13 +13,13 @@ import {
     Logout,
     PersonalPageEditor,
     PersonalProfilePage,
-    UserLandingPage
 } from '@rumpushub/common-react';
 
 import AdminDashboard from './dashboards/admin_dashboard';
 import LandingPageBody from './rumpus/landing';
 import BugReportForm from "./rumpus/bug_report_form";
 import UserHomeRedirect from "./rumpus/user/user-home-redirect";
+import RumpusUserLandingPage from "./rumpus/user/rumpus-user-landing-page";
 
 // import Leaderboard from "./buildshift/notion/leaderboard";
 // import NotionTasks from "./buildshift/notion/notion_tasks";
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "home",
-                element: <UserLandingPage />,
+                element: <RumpusUserLandingPage />,
                 errorElement: <ErrorPage />
             },
 
