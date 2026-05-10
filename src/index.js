@@ -13,7 +13,8 @@ import {
     Logout,
     PersonalPageEditor,
     PersonalProfilePage,
-    UserProfilePage
+    UserProfilePage,
+    RequireAuth
 } from '@rumpushub/common-react';
 
 import AdminDashboard from './dashboards/admin_dashboard';
@@ -48,7 +49,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "user/profile",
-                element: <UserProfilePage />,
+                element:
+                    <>
+                        <RequireAuth>
+                            <UserProfilePage />
+                        </RequireAuth>
+                    </>,
                 errorElement: <ErrorPage />
             },
 
