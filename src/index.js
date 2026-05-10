@@ -16,7 +16,7 @@ import {
     UserLandingPage
 } from '@rumpushub/common-react';
 
-import Tabs from './dashboards/tabs';
+import AdminDashboard from './dashboards/admin_dashboard';
 import LandingPageBody from './rumpus/landing';
 import BugReportForm from "./rumpus/bug_report_form";
 import UserHomeRedirect from "./rumpus/user/user-home-redirect";
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
             // },
             {
                 path: 'admin',
-                element: <Tabs />,
+                element: <AdminDashboard />,
                 errorElement: <ErrorPage />,
             },
             {
