@@ -4,7 +4,8 @@ import {
     createRouteElement,
     UserLandingPageIndex,
     UserProfilePage,
-    PlaceholderPage
+    PlaceholderPage,
+    DEFAULT_PROFILE_FIELDS
 } from "@rumpushub/common-react";
 
 function SecurityPage() {
@@ -103,6 +104,10 @@ export const HOME_ROUTE_ELEMENTS = {
             UserProfilePage,
             {
                 requireAuth: true,
+                componentProps: {
+                    onSave: () => {alert('TODO: you need to implement!')},
+                    fields: DEFAULT_PROFILE_FIELDS
+                }
             }
         ),
 
