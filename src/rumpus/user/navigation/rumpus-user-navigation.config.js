@@ -5,7 +5,7 @@
  *
  * This can later move into:
  *
- * /user/navigation/user-navigation.config.js
+ * /home/navigation/user-navigation.config.js
  *
  * if it grows significantly.
  */
@@ -25,7 +25,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Profile",
 
-                href: "/user/profile",
+                href: "/home/profile",
             },
 
             {
@@ -33,7 +33,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Security",
 
-                href: "/user/security",
+                href: "/home/security",
             },
 
             {
@@ -41,7 +41,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Preferences",
 
-                href: "/user/preferences",
+                href: "/home/preferences",
             },
         ],
     },
@@ -61,7 +61,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Notifications",
 
-                href: "/user/notifications",
+                href: "/home/notifications",
             },
 
             {
@@ -69,7 +69,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Retention Policies",
 
-                href: "/user/retention",
+                href: "/home/retention",
             },
 
             {
@@ -77,7 +77,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Audit Logs",
 
-                href: "/user/audit",
+                href: "/home/audit",
             },
         ],
     },
@@ -97,7 +97,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "API Keys",
 
-                href: "/user/api-keys",
+                href: "/home/api-keys",
             },
 
             {
@@ -105,7 +105,7 @@ export const RUMPUS_USER_NAVIGATION = [
 
                 label: "Webhooks",
 
-                href: "/user/webhooks",
+                href: "/home/webhooks",
             },
         ],
     },

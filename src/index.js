@@ -14,17 +14,30 @@ import {
     PersonalPageEditor,
     PersonalProfilePage,
     UserProfilePage,
-    RequireAuth
+    RequireAuth,
+    UserLandingPageIndex,
+    buildRoutesFromNavigation,
+    useCurren
 } from '@rumpushub/common-react';
 
 import AdminDashboard from './dashboards/admin_dashboard';
-import LandingPageBody from './rumpus/landing';
 import BugReportForm from "./rumpus/bug_report_form";
 import UserHomeRedirect from "./rumpus/user/user-home-redirect";
 import RumpusUserLandingPage from "./rumpus/user/rumpus-user-landing-page";
+import { RUMPUS_USER_NAVIGATION } from "./rumpus/user/navigation/rumpus-user-navigation.config";
+import { HOME_ROUTE_ELEMENTS } from "./rumpus/routes/route-registry";
 
 // import Leaderboard from "./buildshift/notion/leaderboard";
 // import NotionTasks from "./buildshift/notion/notion_tasks";
+
+const homeRoutes =
+    buildRoutesFromNavigation(
+        RUMPUS_USER_NAVIGATION,
+        HOME_ROUTE_ELEMENTS,
+        {
+            basePath: "/home",
+        }
+    );
 
 const router = createBrowserRouter([
     {
@@ -45,7 +58,10 @@ const router = createBrowserRouter([
             {
                 path: "home",
                 element: <RumpusUserLandingPage />,
-                errorElement: <ErrorPage />
+                errorElement: <ErrorPage />,
+                children: [
+                    ...homeRoutes,
+                ],
             },
             {
                 path: "user/profile",
@@ -57,13 +73,6 @@ const router = createBrowserRouter([
                     </>,
                 errorElement: <ErrorPage />
             },
-
-            // {
-            //     index: true, // default child for "/"
-            //     element: <LandingPageBody />,
-            //     // loader: landingLoader,
-            //     errorElement: <ErrorPage />
-            // },
             {
                 path: 'admin',
                 element: <AdminDashboard />,
