@@ -3,7 +3,7 @@ import React from "react";
 import {
     createRouteElement,
     UserLandingPageIndex,
-    UserProfilePage,
+    UserProfileEditor,
     PlaceholderPage,
     DEFAULT_PROFILE_FIELDS
 } from "@rumpushub/common-react";
@@ -101,7 +101,7 @@ export const HOME_ROUTE_ELEMENTS = {
 
     profile:
         createRouteElement(
-            UserProfilePage,
+            UserProfileEditor,
             {
                 requireAuth: true,
                 componentProps: {
