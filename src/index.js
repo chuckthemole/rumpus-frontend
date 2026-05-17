@@ -13,7 +13,6 @@ import {
     Logout,
     PersonalPageEditor,
     PersonalProfilePage,
-    UserProfilePage,
     RequireAuth,
     UserLandingPageIndex,
     buildRoutesFromNavigation,
@@ -62,16 +61,6 @@ const router = createBrowserRouter([
                 children: [
                     ...homeRoutes,
                 ],
-            },
-            {
-                path: "user/profile",
-                element:
-                    <>
-                        <RequireAuth>
-                            <UserProfilePage />
-                        </RequireAuth>
-                    </>,
-                errorElement: <ErrorPage />
             },
             {
                 path: 'admin',

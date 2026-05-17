@@ -10,6 +10,7 @@ import {
     AdminSiteSettingsDashboard,
     LocalStorageExplorer,
     AdminUserDashboard,
+    UsersPage,
 } from "@rumpushub/common-react";
 
 export default function AdminDashboard() {
@@ -26,6 +27,7 @@ export default function AdminDashboard() {
         AdminSiteSettingsDashboard,
         LocalStorageExplorer,
         AdminUserDashboard,
+        UsersPage
     });
 
     /**
@@ -45,6 +47,12 @@ export default function AdminDashboard() {
                 key: "siteSettings",
                 label: "Site Settings",
                 component: <AdminSiteSettingsDashboard />,
+            },
+
+            {
+                key: "users",
+                label: "Users",
+                component: <UsersPage />
             },
 
             {

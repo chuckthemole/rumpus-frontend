@@ -6,7 +6,8 @@ import {
     LOGGER,
     eventLogger,
     LocalPersistence,
-    getEventStore
+    getEventStore,
+    initializeUserApi
 } from '@rumpushub/common-react';
 
 // ----------------------------
@@ -62,9 +63,20 @@ try {
     throw err;
 }
 
-
 LOGGER.debug('Main API base URL:', baseURL);
 LOGGER.debug('Rumpshift API base URL:', rumpshiftURL);
+
+// ----------------------------
+// Setup API Domain Specific
+// ----------------------------
+
+initializeUserApi({
+    get: "/api/user",
+    getAll: "/api/users/asc",
+    create: "/api/user",
+    update: "/api/user",
+    remove: "/api/user",
+});
 
 /**
  * NOTE:
