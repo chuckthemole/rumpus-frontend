@@ -7,7 +7,8 @@ import {
     eventLogger,
     LocalPersistence,
     getEventStore,
-    initializeUserApi
+    initializeUserApi,
+    initializeProfileApi
 } from '@rumpushub/common-react';
 
 // ----------------------------
@@ -74,8 +75,16 @@ initializeUserApi({
     get: "/api/user/:id",
     getAll: "/api/users/asc",
     create: "/api/user",
-    update: "/api/user",
-    remove: "/api/user",
+    update: "/api/user/:id",
+    remove: "/api/user/:id",
+});
+
+initializeProfileApi({
+    get: "/api/profiles/:id",
+    getAll: "/api/profiles",
+    create: "/api/profiles",
+    update: "/api/profiles/:id",
+    remove: "/api/profiles/:id",
 });
 
 /**
