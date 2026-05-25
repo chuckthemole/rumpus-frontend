@@ -1,14 +1,14 @@
 import {
-    createApiClient,
-    setApi,
-    setNamedApi,
-    setLoggingEnv,
     LOGGER,
-    eventLogger,
     LocalPersistence,
+    createApiClient,
+    eventLogger,
     getEventStore,
+    initializeProfileApi,
     initializeUserApi,
-    initializeProfileApi
+    setApi,
+    setLoggingEnv,
+    setNamedApi
 } from '@rumpushub/common-react';
 
 // ----------------------------
@@ -73,7 +73,7 @@ LOGGER.debug('Rumpshift API base URL:', rumpshiftURL);
 
 initializeUserApi({
     get: "/api/user/:id",
-    getAll: "/api/users/asc",
+    getAll: "/api/users",
     create: "/api/user",
     update: "/api/user/:id",
     remove: "/api/user/:id",
