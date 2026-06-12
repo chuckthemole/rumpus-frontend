@@ -1,0 +1,69 @@
+{
+    // =========================================================
+    // Formatting (Prettier-first approach)
+    // =========================================================
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    // =========================================================
+    // ESLint integration (critical for React)
+    // =========================================================
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    // =========================================================
+    // File noise reduction (VERY important for Node projects)
+    // =========================================================
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/.next": true,
+        "**/coverage": true
+    },
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/dist/**": true,
+        "**/build/**": true,
+        "**/.next/**": true,
+        "**/coverage/**": true
+    },
+    // =========================================================
+    // JS/TS behavior
+    // =========================================================
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    // =========================================================
+    // React ergonomics
+    // =========================================================
+    "emmet.includeLanguages": {
+        "javascriptreact": "html",
+        "typescriptreact": "html"
+    },
+    "emmet.triggerExpansionOnTab": true,
+    // =========================================================
+    // General editor improvements
+    // =========================================================
+    "editor.formatOnPaste": false,
+    "editor.formatOnSaveMode": "file"
+}
