@@ -11,6 +11,7 @@ import {
     LocalStorageExplorer,
     AdminUserDashboard,
     UsersPage,
+    RolesDashboard,
 } from "@rumpushub/common-react";
 
 export default function AdminDashboard() {
@@ -27,7 +28,8 @@ export default function AdminDashboard() {
         AdminSiteSettingsDashboard,
         LocalStorageExplorer,
         AdminUserDashboard,
-        UsersPage
+        UsersPage,
+        RolesDashboard
     });
 
     /**
@@ -83,6 +85,11 @@ export default function AdminDashboard() {
                 key: "logs",
                 label: "Logs",
                 component: <LogDashboard />,
+            },
+            {
+                key: "roles",
+                label: "Roles",
+                component: <RolesDashboard />,
             },
         ];
 

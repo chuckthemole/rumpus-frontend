@@ -73,7 +73,7 @@ LOGGER.debug('Rumpshift API base URL:', rumpshiftURL);
 
 initializeUserApi({
     get: "/api/user/:id",
-    getAll: "/api/users",
+    getAll: "/api/admin/users",
     create: "/api/user",
     update: "/api/user/:id",
     remove: "/api/user/:id",

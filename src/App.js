@@ -6,6 +6,8 @@ import {
     AppShell
 } from '@rumpushub/common-react';
 
+import appConfig from './app.config';
+
 export default function App() {
     const appRef = useRef(null);
     const [appElement, setAppElement] = useState(null);
@@ -18,40 +20,6 @@ export default function App() {
             LOGGER.debug("[App] no appRef current.");
         }
     }, []);
-
-    const appConfig = {
-        auth: true,
-        user: true,
-        logger: true,
-        modal: true,
-
-        theme: {
-            enabled: true,
-            color: {
-                defaultLayout: "Sunset Glow",
-                profileId: "global",
-            },
-            font: {
-                slots: {
-                    primary: {
-                        cssVar: "--primary-font",
-                        default: "Inter",
-                        storageKey: "primaryFont",
-                    },
-                    secondary: {
-                        cssVar: "--secondary-font",
-                        default: "Arial",
-                        storageKey: "secondaryFont",
-                    },
-                    quill: {
-                        cssVar: "--quill-font",
-                        default: "Arial",
-                        storageKey: "quillFont",
-                    },
-                },
-            },
-        },
-    };
 
     return (
         <AppProviders config={appConfig}>
