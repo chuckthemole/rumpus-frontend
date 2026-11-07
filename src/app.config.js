@@ -4,7 +4,7 @@ const appConfig = {
         roles: {
             endpoints: {
                 listRoles: "/admin/authority-roles",
-                createRole: "/api/user-roles",
+                createRole: "/admin/authority-roles",
                 removeRole: "/api/user-roles",
             },
         },
